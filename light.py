@@ -63,4 +63,4 @@ print(answer)
 
 #Store in database
 data={"uuid": "1", "lighting": answer}
-result=db.temp_hum.insert(data)
+result=db.lighting.insert(data)

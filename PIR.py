@@ -18,10 +18,9 @@ while(True):
     time.sleep(2)
     a = float(GPIO.input(pin_to_circuit1))
     print(a)
-
-#Store in database 
-data={"uuid": "1", "motion": bool(a)}
-result=db.temp_hum.insert(data)
+    #Store in database 
+    data={"uuid": "1", "motion": bool(a)}
+    result=db.motion.insert(data)
 
 
 
