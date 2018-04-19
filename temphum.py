@@ -15,20 +15,13 @@ class sensor:
    """
    A class to read relative humidity and temperature from the
    DHT22 sensor.  The sensor is also known as the AM2302.
-
    The sensor can be powered from the Pi 3V3 or the Pi 5V rail.
-
    Powering from the 3V3 rail is simpler and safer.  You may need
    to power from 5V if the sensor is connected via a long cable.
-
    For 3V3 operation connect pin 1 to 3V3 and pin 4 to ground.
-
    Connect pin 2 to a gpio.
-
    For 5V operation connect pin 1 to 5V and pin 4 to ground.
-
    The following pin 2 connection works for me.  Use at YOUR OWN RISK.
-
    5V--5K_resistor--+--10K_resistor--Ground
                     |
    DHT22 pin 2 -----+
@@ -40,20 +33,16 @@ class sensor:
       """
       Instantiate with the Pi and gpio to which the DHT22 output
       pin is connected.
-
       Optionally a LED may be specified.  This will be blinked for
       each successful reading.
-
       Optionally a gpio used to power the sensor may be specified.
       This gpio will be set high to power the sensor.  If the sensor
       locks it will be power cycled to restart the readings.
-
       Taking readings more often than about once every two seconds will
       eventually cause the DHT22 to hang.  A 3 second interval seems OK.
       """
 
       self.pi = pi
-      gpio = 4
       self.gpio = gpio
       self.LED = LED
       self.power = power
@@ -246,49 +235,48 @@ class sensor:
          self.cb.cancel()
          self.cb = None
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
 
-   import time
+import time
 
-   import pigpio
+import pigpio
 
-   import DHT22
+import DHT22
 
-   # Intervals of about 2 seconds or less will eventually hang the DHT22.
-   INTERVAL=3
+# Intervals of about 2 seconds or less will eventually hang the DHT22.
+INTERVAL=3
 
-   pi = pigpio.pi()
+pi = pigpio.pi()
 
-   s = DHT22.sensor(pi, 22, LED=16, power=8)
+s = DHT22.sensor(pi, 4, LED=16, power=8) #change gpio pin here
 
-   r = 0
+r = 0
 
-   next_reading = time.time()
+next_reading = time.time()
 
-   while True:
+while True:
 
-      r += 1
+   r += 1
 
-      s.trigger()
+   s.trigger()
 
-      time.sleep(0.2)
+   time.sleep(0.2)
 
-      
-      
-      data={"uuid": "1","entry_num": r, "humidity": s.humidity(), "temperature": s.temperature()}
-      result=db.temp_hum.insert(data)
-      print("Stored in Database", result)
-
-      print("{} {} {} {:3.2f} {} {} {} {}".format(
-         r, s.humidity(), s.temperature(), s.staleness(),
-         s.bad_checksum(), s.short_message(), s.missing_message(),
-         s.sensor_resets()))
-
-      next_reading += INTERVAL
-
-      time.sleep(next_reading-time.time()) # Overall INTERVAL second polling.
-      #time.sleep(5) #Need to figure out how to slow down aquisition
-
-   s.cancel()
-   pi.stop()
    
+   
+   data={"uuid": "1","entry_num": r, "humidity": s.humidity(), "temperature": s.temperature()}
+   result=db.temp_hum.insert(data)
+   print("Stored in Database", result)
+
+   print("{} {} {} {:3.2f} {} {} {} {}".format(
+      r, s.humidity(), s.temperature(), s.staleness(),
+      s.bad_checksum(), s.short_message(), s.missing_message(),
+      s.sensor_resets()))
+
+   next_reading += INTERVAL
+
+   time.sleep(next_reading-time.time()) # Overall INTERVAL second polling.
+   #time.sleep(5) #Need to figure out how to slow down aquisition
+
+s.cancel()
+pi.stop()

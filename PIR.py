@@ -1,34 +1,27 @@
 import RPi.GPIO as GPIO
 import time
 
+import pymongo
+from pymongo import MongoClient
+client = MongoClient('mongodb://admin:admin@ds237979.mlab.com:37979/apollo-dev')
+db=client['apollo-dev']
+
 GPIO.setmode(GPIO.BCM)
 
-#pin_to_circuit0 = 3
-pin_to_circuit1 = 4
-#pin_to_circuit2 = 19
-
+pin_to_circuit1 = 9
 
 GPIO.setup(pin_to_circuit1, GPIO.IN)
 
 GPIO.setwarnings(False)
 
-#while(True):
-#GPIO.output(pin_to_circuit0, GPIO.HIGH)
-    #time.sleep(1)
-    #GPIO.output(pin_to_circuit0, GPIO.LOW)
-
-#GPIO.output(pin_to_circuit1, GPIO.HIGH)
-#time.sleep(10)
-
-while True
+while(True):
+    time.sleep(2)
     a = float(GPIO.input(pin_to_circuit1))
     print(a)
 
-#GPIO.setup(pin_to_circuit1, GPIO.IN)
+#Store in database 
+data={"uuid": "1", "motion": bool(a)}
+result=db.temp_hum.insert(data)
 
-
-#GPIO.output(pin_to_circuit2, GPIO.HIGH)
-    #time.sleep(1)
-    #GPIO.output(pin_to_circuit2, GPIO.LOW)
 
 
