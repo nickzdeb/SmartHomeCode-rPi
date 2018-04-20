@@ -14,12 +14,15 @@ GPIO.setup(pin_to_circuit1, GPIO.IN)
 
 GPIO.setwarnings(False)
 
+r = 0
+
 while(True):
+    r += 1
     time.sleep(2)
     a = float(GPIO.input(pin_to_circuit1))
     print(a)
     #Store in database 
-    data={"uuid": "1", "motion": bool(a)}
+    data={"uuid": "1", "entry_num": r, "motion": bool(a)}
     result=db.motion.insert(data)
 
 

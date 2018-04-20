@@ -1,25 +1,31 @@
 import RPi.GPIO as GPIO
 import time
+import datetime
 
-GPIO.setmode(GPIO.BCM)
+now = datetime.datetime.now()
 
-pin_to_circuit0 = 3
-pin_to_circuit1 = 4
-pin_to_circuit2 = 19
+#GPIO.setmode(GPIO.BCM)
 
-#GPIO.setup(pin_to_circuit0, GPIO.OUT)
-GPIO.setup(pin_to_circuit1, GPIO.OUT)
+#pin_to_circuit0 = 2 #Left
+#pin_to_circuit1 = 26 #Right
+#pin_to_circuit2 = 19
+
+#GPIO.setup(pin_to_circuit0, GPIO.IN)
+#GPIO.setup(pin_to_circuit1, GPIO.IN)
 #GPIO.setup(pin_to_circuit2, GPIO.OUT)
 
-GPIO.setwarnings(False)
+#GPIO.setwarnings(False)
 
 #while(True):
 #GPIO.output(pin_to_circuit0, GPIO.HIGH)
     #time.sleep(1)
     #GPIO.output(pin_to_circuit0, GPIO.LOW)
 
-GPIO.output(pin_to_circuit1, GPIO.HIGH)
-time.sleep(10)
+    #a = float(GPIO.input(pin_to_circuit0))
+    #print(a)
+    #b = float(GPIO.input(pin_to_circuit1))
+    #print(b)
+    #time.sleep(1)
 
 #GPIO.setup(pin_to_circuit1, GPIO.IN)
 
@@ -29,3 +35,4 @@ time.sleep(10)
     #GPIO.output(pin_to_circuit2, GPIO.LOW)
 
 
+print(now)

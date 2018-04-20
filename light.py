@@ -2,11 +2,14 @@
 #!/usr/bin/env python
 import time
 import RPi.GPIO as GPIO
-
+import datetime
 import pymongo
+
 from pymongo import MongoClient
 client = MongoClient('mongodb://admin:admin@ds237979.mlab.com:37979/apollo-dev')
 db=client['apollo-dev']
+
+now = datetime.datetime.now()
 
 GPIO.setwarnings(False)
 
@@ -40,6 +43,7 @@ GPIO.setup(pin_to_circuit3, GPIO.IN)
 GPIO.output(pin_to_circuit2, GPIO.HIGH)
 time.sleep(0.5)
 
+   
 for j in range(0,1):
    GPIO.output(pin_to_circuit2, GPIO.LOW)
    for i in range(0,16): 
@@ -62,5 +66,5 @@ answer = convert_to_tens(data)
 print(answer)
 
 #Store in database
-data={"uuid": "1", "lighting": answer}
+data={"uuid": "1", "entry_num": 5, "lighting": answer, "day": now.day, "time": str(now.hour)+":"+str(now.minute)}
 result=db.lighting.insert(data)
