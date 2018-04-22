@@ -11,6 +11,8 @@ now = datetime.datetime.now()
 
 GPIO.setmode(GPIO.BCM)             # Set GPIO output pins format
 
+switch1_isOn = False
+switch2_isOn = False
 
 touch_input_left = 2 #touch input pin 1
 GPIO.setup(touch_input_left, GPIO.IN) 
@@ -25,12 +27,26 @@ GPIO.setup(ss_relay_1, GPIO.OUT)
 ss_relay_2 = 17 #solid state relay pin 2
 GPIO.setup(ss_relay_2, GPIO.OUT) 
 
+#Switch 1
+try:
+    switch1 = db.light_control_1.find().sort('_created_at',-1).limit(1)
+    print("data from light control 1")
+    for object in switch1:
+        print object["signal"]
+except Exception, e:
+    print str(e)
 
-
-
+#Switch 2
+try:
+    switch2 = db.light_control_2.find().sort('_created_at',-1).limit(1)
+    print("data from light control 2")
+    for object in switch2:
+        print object["signal"]
+except Exception, e:
+    print str(e)
 
 
 
 #Store in database
-data={"uuid": "1", "entry_num": 5, "lighting": answer, "day": now.day, "time": str(now.hour)+":"+str(now.minute)}
-result=db.light_control.insert(data)
+#data={"uuid": "1", "entry_num": 5, "lighting": answer, "day": now.day, "time": str(now.hour)+":"+str(now.minute)}
+#result=db.light_control.insert(data)
