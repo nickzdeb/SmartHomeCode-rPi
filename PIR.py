@@ -8,7 +8,7 @@ db=client['apollo-dev']
 
 GPIO.setmode(GPIO.BCM)
 
-pin_to_circuit1 = 9
+pin_to_circuit1 = 18
 
 GPIO.setup(pin_to_circuit1, GPIO.IN)
 
@@ -22,8 +22,8 @@ while(True):
     a = float(GPIO.input(pin_to_circuit1))
     print(a)
     #Store in database 
-    data={"uuid": "1", "entry_num": r, "motion": bool(a)}
-    result=db.motion.insert(data)
+    #data={"uuid": "1", "entry_num": r, "motion": bool(a)}
+    #result=db.motion.insert(data)
 
 
 

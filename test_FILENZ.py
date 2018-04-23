@@ -4,9 +4,20 @@ import datetime
 
 now = datetime.datetime.now()
 
-#GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BCM)
 
-#pin_to_circuit0 = 2 #Left
+GPIO.setwarnings(False)
+
+ss_relay_1 = 17 #solid state relay pin 1
+GPIO.setup(ss_relay_1, GPIO.OUT)
+
+#while(True):
+    #GPIO.output(ss_relay_1, GPIO.HIGH)
+    #time.sleep(3)
+GPIO.output(ss_relay_1, GPIO.HIGH)
+    #time.sleep(3)
+
+#pin_to_circuit0 = 14 #Left
 #pin_to_circuit1 = 26 #Right
 #pin_to_circuit2 = 19
 
@@ -17,14 +28,14 @@ now = datetime.datetime.now()
 #GPIO.setwarnings(False)
 
 #while(True):
-#GPIO.output(pin_to_circuit0, GPIO.HIGH)
+    #GPIO.output(pin_to_circuit0, GPIO.HIGH)
     #time.sleep(1)
     #GPIO.output(pin_to_circuit0, GPIO.LOW)
 
     #a = float(GPIO.input(pin_to_circuit0))
-    #print(a)
+    #print("Left: ", a)
     #b = float(GPIO.input(pin_to_circuit1))
-    #print(b)
+    #print("Right: ", b)
     #time.sleep(1)
 
 #GPIO.setup(pin_to_circuit1, GPIO.IN)
@@ -35,4 +46,4 @@ now = datetime.datetime.now()
     #GPIO.output(pin_to_circuit2, GPIO.LOW)
 
 
-print(now)
+#print(now)
